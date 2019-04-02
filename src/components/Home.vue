@@ -48,11 +48,17 @@ export default {
 }
 
 #nav-title {
-  color: #ffffff;
+  color: #e02261;
+}
+
+#nav-getin {
+  color: #e02261;
+  border-color: #e02261;
 }
 
 #nav-getin:hover {
   color: #68cdcd;
+  background-color: #e02261;
 }
 
 #logo-box {
