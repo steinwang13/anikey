@@ -14,29 +14,21 @@
       <p id="description">a site to share anime reviews</p>
     </div>
 
-    <b-carousel
-      id="carousel-fade"
-      v-model="slide"
-      :interval="4000"
-      fade
-      indicators
-      img-width="1920px"
-      img-height="1080px"
-    >
-      <b-carousel-slide
-        img-src="https://i.pximg.net/img-original/img/2018/10/20/05/17/25/71261209_p0.jpg"></b-carousel-slide>
-      <b-carousel-slide
-        img-src="https://i.pximg.net/img-original/img/2016/01/21/04/22/07/54823531_p0.png"></b-carousel-slide>
-      <b-carousel-slide
-        img-src="https://i.pximg.net/img-original/img/2012/11/29/00/12/49/31796432_p0.jpg"></b-carousel-slide>
-    </b-carousel>
+    <div id="carousel">
+      <CarouselTest></CarouselTest>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Home'
-}
+  import CarouselTest from './CarouselTest'
+
+  export default {
+    name: 'Home',
+    components: {
+      CarouselTest
+    }
+  }
 </script>
 
 <style scoped>
@@ -81,11 +73,5 @@ export default {
   font-size: 30px;
   font-weight: bold;
   color: azure;
-}
-
-#carousel-fade {
-  text-shadow: 0px 0px 2px #000;
-  overflow: hidden;
-  height: 42rem;
 }
 </style>
