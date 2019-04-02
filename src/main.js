@@ -6,9 +6,11 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
+import VueCarousel from '@chenfengyuan/vue-carousel'
 
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
+Vue.use(VueCarousel)
 
 import Home from './components/Home'
 import Threads from './components/Threads'
