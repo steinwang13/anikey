@@ -1,10 +1,10 @@
 <template>
   <div id="home">
     <b-navbar fixed toggleable id="navbar">
-      <b-navbar-brand id="nav-title" href="Home">AniKey</b-navbar-brand>
+      <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
       <b-nav-text toggleable>INTO ISEKAI!</b-nav-text>
       <b-navbar-nav>
-        <b-button variant="outline-light" id="nav-getin" href="">Get In!</b-button>
+        <b-button variant="outline-light" id="nav-getin" @click="toThreads">Get In!</b-button>
       </b-navbar-nav>
     </b-navbar>
 
@@ -21,14 +21,22 @@
 </template>
 
 <script>
-  import CarouselTest from './CarouselTest'
+import CarouselTest from './CarouselTest'
 
-  export default {
-    name: 'Home',
-    components: {
-      CarouselTest
+export default {
+  name: 'Home',
+  components: {
+    CarouselTest
+  },
+  methods: {
+    toHome() {
+      this.$router.push('/home')
+    },
+    toThreads() {
+      this.$router.push('/threads')
     }
   }
+}
 </script>
 
 <style scoped>

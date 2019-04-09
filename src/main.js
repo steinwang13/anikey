@@ -14,6 +14,7 @@ Vue.use(VueCarousel)
 
 import Home from './components/Home'
 import Threads from './components/Threads'
+import Write from './components/Write'
 
 const router = new VueRouter({
   mode: 'history',
@@ -26,6 +27,10 @@ const router = new VueRouter({
     {
       path: '/threads',
       component: Threads
+    },
+    {
+      path: '/write',
+      component: Write
     },
     {
       path: '*',

@@ -1,76 +1,67 @@
 <template>
   <div id="threads">
     <b-navbar fixed toggleable id="navbar">
-      <b-navbar-brand id="nav-title" href="Home">AniKey</b-navbar-brand>
+      <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
       <b-navbar-nav>
-        <b-button variant="outline-light" id="nav-write" href="">Write New Review!</b-button>
+        <b-button variant="outline-light" id="nav-write" @click="toWrite">Write New Review!</b-button>
       </b-navbar-nav>
     </b-navbar>
 
     <div id="contents">
-      <h1 id="threads-title">Your Reviews</h1>
-      
-      <b-card no-body class="overflow-hidden" id="card">
-        <b-row no-gutters>
-          <b-col md="6">
-            <b-card-img src="https://i.pximg.net/img-original/img/2018/10/20/05/17/25/71261209_p0.jpg" class="rounded-0"></b-card-img>
-          </b-col>
-          <b-col md="6">
-            <a href="">
-              <b-card-body title="Horizontal Card">
-                <b-card-text>
-                  This is a wider card with supporting text as a natural lead-in to additional content.
-                  This content is a little bit longer.
-                </b-card-text>
-              </b-card-body>
-            </a>
-          </b-col>
-        </b-row>
-      </b-card>
-      
-      
-      <b-card no-body class="overflow-hidden" id="card">
-        <b-row no-gutters>
-          <b-col md="6">
-            <b-card-img src="https://i.pximg.net/img-original/img/2016/01/21/04/22/07/54823531_p0.png" class="rounded-0"></b-card-img>
-          </b-col>
-          <b-col md="6">
-            <a href="">
-              <b-card-body title="Horizontal Card">
-                <b-card-text>
-                  This is a wider card with supporting text as a natural lead-in to additional content.
-                  This content is a little bit longer.
-                </b-card-text>
-              </b-card-body>
-            </a>
-          </b-col>
-        </b-row>
-      </b-card>
-      
-      <b-card no-body class="overflow-hidden" id="card">
-        <b-row no-gutters>
-          <b-col md="6">
-            <b-card-img src="https://i.pximg.net/img-original/img/2012/11/29/00/12/49/31796432_p0.jpg" class="rounded-0"></b-card-img>
-          </b-col>
-          <b-col md="6">
-            <a href="">
-              <b-card-body title="Horizontal Card">
-                <b-card-text>
-                  This is a wider card with supporting text as a natural lead-in to additional content.
-                  This content is a little bit longer.
-                </b-card-text>
-              </b-card-body>
-            </a>
-          </b-col>
-        </b-row>
-      </b-card>
+      <h1 id="threads-title">Reviews</h1>
+      <Post
+        v-for="item in items"
+        v-bind:key="item.id"
+        v-bind:item="item"
+      ></Post>
     </div>
   </div>
 </template>
 
 <script>
+import Post from "./Post"
+
 export default {
-  name: 'Threads'
+  name: 'Threads',
+  components: {
+    Post
+  },
+  data: function() {
+    return {
+      items: [
+        {
+          id: 1,
+          counter: 0,
+          image: require("../assets/jingmi.jpg"),
+          title: "Title",
+          author: "god",
+          text: "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.\n\nFusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+        },
+        {
+          id: 2,
+          counter: 0,
+          image: require("../assets/kyoushitsu.jpg"),
+          title: "Title",
+          author: "god",
+          text: "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.\n\nFusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+        }
+      ]
+    };
+  },
+  methods: {
+    toHome() {
+      this.$router.push('/home');
+    },
+    toWrite() {
+      this.$router.push('/write');
+    },
+    removePost(id) {
+      this.items.splice(id, 1);
+    },
+    addPost() {
+
+    }
+  }
 }
 </script>
 
@@ -106,18 +97,5 @@ export default {
   margin-right: auto;
   padding-top: 50px;
   padding-bottom: 50px;
-}
-
-#card {
-  margin: 10px;
-}
-
-a {
-  text-decoration: none;
-  color: #000000;
-}
-
-a:hover {
-  color: #e02261;
 }
 </style>
