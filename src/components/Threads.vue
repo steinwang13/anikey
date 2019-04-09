@@ -57,9 +57,6 @@ export default {
     },
     removePost(id) {
       this.items.splice(id, 1);
-    },
-    addPost() {
-
     }
   }
 }
