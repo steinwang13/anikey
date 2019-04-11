@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     toHome() {
-      this.$router.push('/home')
+      this.$router.push('/home/')
     },
     toThreads() {
-      this.$router.push('/threads')
+      this.$router.push('/threads/')
     }
   }
 }

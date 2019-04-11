@@ -21,20 +21,20 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {
-      path: '/',
+      path: '/home/',
       component: Home
     },
     {
-      path: '/threads',
+      path: '/threads/',
       component: Threads
     },
     {
-      path: '/write',
+      path: '/write/',
       component: Write
     },
     {
       path: '*',
-      redirect: '/'
+      redirect: '/home/'
     }
   ]
 })

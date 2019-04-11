@@ -31,7 +31,7 @@ export default {
       items: [
         {
           id: 1,
-          counter: 0,
+          like: 0,
           image: require("../assets/jingmi.jpg"),
           title: "Title",
           author: "god",
@@ -39,7 +39,7 @@ export default {
         },
         {
           id: 2,
-          counter: 0,
+          like: 0,
           image: require("../assets/kyoushitsu.jpg"),
           title: "Title",
           author: "god",
@@ -50,10 +50,10 @@ export default {
   },
   methods: {
     toHome() {
-      this.$router.push('/home');
+      this.$router.push('/home/');
     },
     toWrite() {
-      this.$router.push('/write');
+      this.$router.push('/write/');
     },
     removePost(id) {
       this.items.splice(id, 1);

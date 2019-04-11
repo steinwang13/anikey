@@ -31,7 +31,7 @@
             id="input-2"
             v-model="form.author"
             required
-            placeholder="Enter Your Name"
+            placeholder="Enter Whatever Name You Like"
           ></b-form-input>
         </b-form-group>
 
@@ -45,7 +45,7 @@
             placeholder="Choose a file..."
             drop-placeholder="Drop file here..."
             accept="image/*"
-            required="true"
+            required
           ></b-form-file>
         </b-form-group>
 
@@ -55,10 +55,11 @@
           <b-form-textarea
             id="textarea"
             v-model="form.text"
-            placeholder="Enter at least 10 characters..."
+            placeholder="Enter no more than 1500 characters..."
             rows="8"
             max-rows="16"
-            :state="form.text.length >= 10"
+            :state="form.text.length <= 1500 & form.text.length > 0"
+            required
           ></b-form-textarea>
         </b-form-group>
 
@@ -104,10 +105,10 @@ export default {
       })
     },
     toHome() {
-      this.$router.push('/home');
+      this.$router.push('/home/');
     },
     toThreads() {
-      this.$router.push('/threads');
+      this.$router.push('/threads/');
     }
   }
 }
