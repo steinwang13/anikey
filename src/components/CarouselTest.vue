@@ -28,17 +28,17 @@
   }
 
   .img1 {
-    background-image: url("../assets/kyoushitsu.jpg");
+    background-image: url("../../static/kyoushitsu.jpg");
     background-size: cover;
   }
 
   .img2 {
-    background-image: url("../assets/kaori.jpg");
+    background-image: url("../../static/kaori.jpg");
     background-size: cover;
   }
 
   .img3 {
-    background-image: url("../assets/suzumiya.jpg");
+    background-image: url("../../static/suzumiya.jpg");
     background-size: cover;
   }
 </style>

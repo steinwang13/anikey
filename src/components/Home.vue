@@ -9,7 +9,7 @@
     </b-navbar>
 
     <div id="logo-box">
-      <img id="logo" src="../assets/anikeylogo.png">
+      <img id="logo" src="../../static/anikeylogo.png">
       <p id="sitename">ANIKEY</p>
       <p id="description">a site to share anime reviews</p>
     </div>

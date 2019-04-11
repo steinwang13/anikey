@@ -7,7 +7,7 @@ let db = new sqlite.Database("./server/db/postdb.sqlite3", (err) => {
   console.log("Database connected successfully.");
 });
 
-function create() {
+function createTable() {
   this.db.run("DROP TABLE IF EXISTS post");
   this.db.run("CREATE TABLE IF NOT EXISTS post \
     (id    INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT , \
@@ -23,15 +23,15 @@ function create() {
   });
 }
 
-function insertexample() {
+function insertExamplePosts() {
   let stmt = this.db.prepare("INSERT INTO post \
     (image, title, author, text) VALUES (?, ?, ?, ?)");
-  stmt.run("../../src/assets/kaori.jpg", "TTT", "TT", "TKTKTKTKTKT");
-  stmt.run("../../src/assets/logo.png", "T", "T", "TKTKTKTKTK");
+  stmt.run("../../static/kaori.jpg", "TTT", "TT", "TKTKTKTKTKT");
+  stmt.run("../../static/suzumiya.jpg", "T", "T", "TKTKTKTKTK");
   stmt.finalize();
 }
 
-function insert(image, title, author, text) {
+function addPost(image, title, author, text) {
   let stmt = this.db.prepare("INSERT INTO post \
     (image, title, author, text) VALUES (?, ?, ?, ?)");
   stmt.run(image, title, author, text, (err) => {
@@ -43,7 +43,7 @@ function insert(image, title, author, text) {
   stmt.finalize();
 }
 
-function queryall() {
+function getAllPosts() {
   let stmt = this.db.prepare("SELECT * FROM post");
   stmt.each((err, row) => {
     if (err) {
@@ -55,7 +55,7 @@ function queryall() {
   stmt.finalize();
 }
 
-function query(id) {
+function getPost(id) {
   let stmt = this.db.prepare("SELECT * FROM post WHERE id = ?");
   stmt.get(id, (err, row) => {
     if (err) {
@@ -67,7 +67,7 @@ function query(id) {
   stmt.finalize();
 }
 
-function remove(id) {
+function removePost(id) {
   let stmt = this.db.prepare("DELETE FROM post WHERE id = ?");
   stmt.run(id, (err) => {
     if (err) {
@@ -78,7 +78,7 @@ function remove(id) {
   stmt.finalize();
 }
 
-function updateLike(id, like) {
+function updatePostLike(id, like) {
   let stmt = this.db.prepare("UPDATE post SET like = ? WHERE id = ?");
   stmt.run(like, id, (err) => {
     if (err) {
@@ -91,11 +91,11 @@ function updateLike(id, like) {
 
 module.exports = {
   db,
-  create,
-  insertexample,
-  queryall,
-  insert,
-  query,
-  remove,
-  updateLike
+  createTable,
+  insertExamplePosts,
+  getAllPosts,
+  addPost,
+  getPost,
+  removePost,
+  updatePostLike
 }

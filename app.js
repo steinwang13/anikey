@@ -3,15 +3,15 @@ var app = express();
 var post = require("./server/model/post");
 
 post.db.serialize(() => {
-  post.create();
-  post.insertexample();
-  post.insert("../../src/assets/logo.png", "X", "X", "CCC");
-  post.queryall();
-  post.query(1);
-  post.remove(3);
-  post.updateLike(1, 2);
-  post.updateLike(2, 3);
-  post.queryall();
+  post.createTable();
+  post.insertExamplePosts();
+  post.addPost("../../static/anikeylogo.png", "X", "X", "CCC");
+  post.getAllPosts();
+  post.getPost(1);
+  post.removePost(3);
+  post.updatePostLike(1, 2);
+  post.updatePostLike(2, 3);
+  post.getAllPosts();
 });
 post.db.close((err) => {
   if (err) {
