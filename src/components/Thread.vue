@@ -1,5 +1,5 @@
 <template>
-  <div id="threads">
+  <div id="thread">
     <b-navbar fixed toggleable id="navbar">
       <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
       <b-navbar-nav>
@@ -8,7 +8,7 @@
     </b-navbar>
 
     <div id="contents">
-      <h1 id="threads-title">Reviews</h1>
+      <h1 id="thread-title">Reviews</h1>
       <Post
         v-for="item in items"
         v-bind:key="item.id"
@@ -22,7 +22,7 @@
 import Post from "./Post"
 
 export default {
-  name: 'Threads',
+  name: 'Thread',
   components: {
     Post
   },
@@ -84,7 +84,7 @@ export default {
   background-color: #e02261;
 }
 
-#threads-title {
+#thread-title {
   margin: 10px;
 }
 

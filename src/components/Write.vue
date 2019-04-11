@@ -3,7 +3,7 @@
     <b-navbar fixed toggleable id="navbar">
       <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
       <b-navbar-nav>
-        <b-button variant="outline-light" id="nav-write" @click="toThreads">Go Back</b-button>
+        <b-button variant="outline-light" id="nav-write" @click="toThread">Go Back</b-button>
       </b-navbar-nav>
     </b-navbar>
 
@@ -107,8 +107,8 @@ export default {
     toHome() {
       this.$router.push('/home/');
     },
-    toThreads() {
-      this.$router.push('/threads/');
+    toThread() {
+      this.$router.push('/thread/');
     }
   }
 }

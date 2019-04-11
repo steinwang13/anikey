@@ -4,7 +4,7 @@
       <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
       <b-nav-text toggleable>INTO ISEKAI!</b-nav-text>
       <b-navbar-nav>
-        <b-button variant="outline-light" id="nav-getin" @click="toThreads">Get In!</b-button>
+        <b-button variant="outline-light" id="nav-getin" @click="toThread">Get In!</b-button>
       </b-navbar-nav>
     </b-navbar>
 
@@ -32,8 +32,8 @@ export default {
     toHome() {
       this.$router.push('/home/')
     },
-    toThreads() {
-      this.$router.push('/threads/')
+    toThread() {
+      this.$router.push('/thread/')
     }
   }
 }

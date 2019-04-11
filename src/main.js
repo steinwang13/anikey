@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 Vue.use(VueCarousel)
 
 import Home from './components/Home'
-import Threads from './components/Threads'
+import Thread from './components/Thread'
 import Write from './components/Write'
 
 const router = new VueRouter({
@@ -25,8 +25,8 @@ const router = new VueRouter({
       component: Home
     },
     {
-      path: '/threads/',
-      component: Threads
+      path: '/thread/',
+      component: Thread
     },
     {
       path: '/write/',
