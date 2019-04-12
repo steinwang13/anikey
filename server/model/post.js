@@ -1,6 +1,6 @@
 "use strict";
 const sqlite = require("sqlite3").verbose();
-let db = new sqlite.Database("./server/db/postdb.sqlite3", (err) => {
+const db = new sqlite.Database("./server/db/postdb.sqlite3", function (err)  {
   if (err) {
     return console.log(err.message);
   }
@@ -8,14 +8,14 @@ let db = new sqlite.Database("./server/db/postdb.sqlite3", (err) => {
 });
 
 function createTable() {
-  this.db.run("DROP TABLE IF EXISTS post");
-  this.db.run("CREATE TABLE IF NOT EXISTS post \
-    (id    INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT , \
+  db.run("DROP TABLE IF EXISTS post");
+  db.run("CREATE TABLE IF NOT EXISTS post \
+    (id    INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, \
     like   INTEGER      NOT NULL DEFAULT 0, \
     image  VARCHAR(255) NOT NULL, \
     title  VARCHAR(255) NOT NULL, \
     author VARCHAR(255) NOT NULL, \
-    text   TEXT         NOT NULL)", (err) => {
+    text   TEXT         NOT NULL)", function (err) {
     if (err) {
       return console.log(err.message);
     }
@@ -24,7 +24,7 @@ function createTable() {
 }
 
 function insertExamplePosts() {
-  let stmt = this.db.prepare("INSERT INTO post \
+  let stmt = db.prepare("INSERT INTO post \
     (image, title, author, text) VALUES (?, ?, ?, ?)");
   stmt.run("../../static/kaori.jpg", "TTT", "TT", "TKTKTKTKTKT");
   stmt.run("../../static/suzumiya.jpg", "T", "T", "TKTKTKTKTK");
@@ -32,9 +32,9 @@ function insertExamplePosts() {
 }
 
 function addPost(image, title, author, text) {
-  let stmt = this.db.prepare("INSERT INTO post \
+  let stmt = db.prepare("INSERT INTO post \
     (image, title, author, text) VALUES (?, ?, ?, ?)");
-  stmt.run(image, title, author, text, (err) => {
+  stmt.run(image, title, author, text, function (err) {
     if (err) {
       return console.log(err.message);
     }
@@ -44,8 +44,8 @@ function addPost(image, title, author, text) {
 }
 
 function getAllPosts() {
-  let stmt = this.db.prepare("SELECT * FROM post");
-  stmt.each((err, row) => {
+  let stmt = db.prepare("SELECT * FROM post");
+  stmt.each(function (err, row) {
     if (err) {
       return console.log(err.message);
     }
@@ -56,8 +56,8 @@ function getAllPosts() {
 }
 
 function getPost(id) {
-  let stmt = this.db.prepare("SELECT * FROM post WHERE id = ?");
-  stmt.get(id, (err, row) => {
+  let stmt = db.prepare("SELECT * FROM post WHERE id = ?");
+  stmt.get(id, function (err, row) {
     if (err) {
       return console.log(err.message);
     }
@@ -68,8 +68,8 @@ function getPost(id) {
 }
 
 function removePost(id) {
-  let stmt = this.db.prepare("DELETE FROM post WHERE id = ?");
-  stmt.run(id, (err) => {
+  let stmt = db.prepare("DELETE FROM post WHERE id = ?");
+  stmt.run(id, function (err) {
     if (err) {
       return console.log(err.message);
     }
@@ -79,8 +79,8 @@ function removePost(id) {
 }
 
 function updatePostLike(id, like) {
-  let stmt = this.db.prepare("UPDATE post SET like = ? WHERE id = ?");
-  stmt.run(like, id, (err) => {
+  let stmt = db.prepare("UPDATE post SET like = ? WHERE id = ?");
+  stmt.run(like, id, function (err) {
     if (err) {
       return console.log(err.message);
     }

@@ -1,24 +1,18 @@
-var express = require("express");
-var app = express();
-var post = require("./server/model/post");
+let express = require("express");
+let app = express();
+let model = require("./server/model/post.js");
 
-post.db.serialize(() => {
-  post.createTable();
-  post.insertExamplePosts();
-  post.addPost("../../static/anikeylogo.png", "X", "X", "CCC");
-  post.getAllPosts();
-  post.getPost(1);
-  post.removePost(3);
-  post.updatePostLike(1, 2);
-  post.updatePostLike(2, 3);
-  post.getAllPosts();
-});
-post.db.close((err) => {
-  if (err) {
-    console.error(err.message);
-  }
-  console.log('Database connection closed.');
-});
+// model.db.serialize(() => {
+//   model.createTable();
+//   model.insertExamplePosts();
+//   model.addPost("../../static/anikeylogo.png", "X", "X", "CCC");
+//   model.getAllPosts();
+//   model.getPost(1);
+//   model.removePost(3);
+//   model.updatePostLike(1, 2);
+//   model.updatePostLike(2, 3);
+//   model.getAllPosts();
+// });
 
 app.get("/", function (req, res) {
   res.send("Hello World!");
