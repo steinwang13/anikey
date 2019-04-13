@@ -6,9 +6,10 @@ const db = new sqlite.Database("./server/db/postdb.sqlite3", function (err)  {
   }
   console.log("Database connected successfully.");
 });
+createTable();
 
 function createTable() {
-  db.run("DROP TABLE IF EXISTS post");
+  // db.run("DROP TABLE IF EXISTS post");
   db.run("CREATE TABLE IF NOT EXISTS post \
     (id    INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, \
     like   INTEGER      NOT NULL DEFAULT 0, \
@@ -19,7 +20,7 @@ function createTable() {
     if (err) {
       return console.log(err.message);
     }
-    console.log("Table post created successfully.");
+    console.log("Table post has been built successfully.");
   });
 }
 
@@ -43,28 +44,36 @@ function addPost(image, title, author, text) {
   stmt.finalize();
 }
 
-function getAllPosts() {
+function getAllPosts(callback) {
   let stmt = db.prepare("SELECT * FROM post");
-  stmt.each(function (err, row) {
+  stmt.all(ready);
+  stmt.finalize();
+  function ready(err, rows) {
     if (err) {
       return console.log(err.message);
     }
-    console.log(row.id + ": " + row.like + " " + row.image + " " +
-    row.title + " " + row.author + " " + row.text);
-  });
-  stmt.finalize();
+    getAllPosts2(callback, rows);
+  }
 }
 
-function getPost(id) {
+function getAllPosts2(callback, rows) {
+  callback(rows);
+}
+
+function getPost(id, callback) {
   let stmt = db.prepare("SELECT * FROM post WHERE id = ?");
-  stmt.get(id, function (err, row) {
+  stmt.get(id, ready);
+  stmt.finalize();
+  function ready(err, row) {
     if (err) {
       return console.log(err.message);
     }
-    console.log(row.id + ": " + row.like + " " + row.image + " " +
-    row.title + " " + row.author + " " + row.text);
-  });
-  stmt.finalize();
+    getPost2(callback, row);
+  }
+}
+
+function getPost2(callback, row) {
+  callback(row);
 }
 
 function removePost(id) {
@@ -90,8 +99,6 @@ function updatePostLike(id, like) {
 }
 
 module.exports = {
-  db,
-  createTable,
   insertExamplePosts,
   getAllPosts,
   addPost,
