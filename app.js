@@ -18,7 +18,7 @@ let router = express.Router();
 // });
 
 app.get("/", function (req, res) {
-  req = 1; // some switch. finally I can go to sleep!
+  req = 0; // some switch. finally I can go to sleep!
   if (req == 0) {
     api.getAllPosts(callbackAllPostsData);
     function callbackAllPostsData(rows) {
