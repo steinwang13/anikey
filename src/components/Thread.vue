@@ -64,8 +64,7 @@ export default {
     },
     /* Get data of posts from backend. NOT FINISHED */
     // getAllPostsData() {
-    //   this.$http.get("/thread/");
-    //   this.then(function (err, res) {
+    //   this.$http.get("/thread/").then(function (err, res) {
     //     if (err) {
     //       this.$message.error("Failed to get thread of posts!");
     //       console.log(err);
