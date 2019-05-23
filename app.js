@@ -4,6 +4,7 @@ const http = require("http");
 const app = express();
 const api = require("./server/api/api.js");
 let router = express.Router();
+app.use(express.json());
 
 // api.db.serialize(() => {
 //   api.createTable();
@@ -17,19 +18,23 @@ let router = express.Router();
 //   api.getAllPosts();
 // });
 
-app.get("/", function (req, res) {
-  req = 0; // some switch. finally I can go to sleep!
-  if (req == 0) {
-    api.getAllPosts(callbackAllPostsData);
-    function callbackAllPostsData(rows) {
-      res.send(rows);
-    }
-  } else {
-    api.getPost(2, callbackPostData);
-    function callbackPostData(row) {
-      res.send(row);
-    }
+app.get("/thread", function (req, res) {
+  api.getAllPosts(callbackAllPostsData);
+  function callbackAllPostsData(rows) {
+    res.send(rows);
   }
+});
+
+app.put("/write", function (req, res) {
+  api.addPost(req.body.image, req.body.title, req.body.author, req.body.text);
+});
+
+app.post("/thread", function (req, res) {
+  api.updatePostLike(req.body.id, req.body.like);
+});
+
+app.delete("/thread", function (req, res) {
+  api.removePost(req.body.id);
 });
 
 app.listen(3000, function () {
