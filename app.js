@@ -27,14 +27,17 @@ app.get("/thread", function (req, res) {
 
 app.put("/write", function (req, res) {
   api.addPost(req.body.image, req.body.title, req.body.author, req.body.text);
+  res.send("Review Added!");
 });
 
 app.post("/thread", function (req, res) {
   api.updatePostLike(req.body.id, req.body.like);
+  res.send("Review liked!");
 });
 
 app.delete("/thread", function (req, res) {
   api.removePost(req.body.id);
+  res.send("Review deleted!");
 });
 
 app.listen(3000, function () {
