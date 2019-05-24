@@ -58,7 +58,13 @@ export default {
       this.$router.push('/write/');
     },
     removePost(objId) {
-      this.items.splice(this.items.findIndex(item => item.id === objId), 1);
+      this.$http.delete("http://localhost:3000/thread", { data: {id: objId} })
+      .then((response) => {
+        this.items.splice(this.items.findIndex(item => item.id === objId), 1);
+      }, (error) => {
+        console.log("failed to delete a post");
+        console.log(error.response.data.message);
+      })
     },
   }
 }

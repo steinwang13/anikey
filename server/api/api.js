@@ -6,10 +6,12 @@ const db = new sqlite.Database("./server/db/postdb.sqlite3", function (err)  {
   }
   console.log("Database connected successfully.");
 });
-createTable();
+//createTable();
+//insertExamplePosts();
+
 
 function createTable() {
-  // db.run("DROP TABLE IF EXISTS post");
+  db.run("DROP TABLE IF EXISTS post");
   db.run("CREATE TABLE IF NOT EXISTS post \
     (id    INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, \
     like   INTEGER      NOT NULL DEFAULT 0, \
@@ -29,7 +31,9 @@ function insertExamplePosts() {
     (image, title, author, text) VALUES (?, ?, ?, ?)");
   stmt.run("../../static/kaori.jpg", "TTT", "TT", "TKTKTKTKTKT");
   stmt.run("../../static/suzumiya.jpg", "T", "T", "TKTKTKTKTK");
+  stmt.run("../../static/anikeylogo.png","X","X","CCC");
   stmt.finalize();
+  console.log("Example posts inserted.");
 }
 
 function addPost(image, title, author, text) {
