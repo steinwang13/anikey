@@ -60,22 +60,6 @@ function getAllPosts2(callback, rows) {
   callback(rows);
 }
 
-// function getPost(id, callback) {
-//   let stmt = db.prepare("SELECT * FROM post WHERE id = ?");
-//   stmt.get(id, ready);
-//   stmt.finalize();
-//   function ready(err, row) {
-//     if (err) {
-//       return console.log(err.message);
-//     }
-//     getPost2(callback, row);
-//   }
-// }
-
-// function getPost2(callback, row) {
-//   callback(row);
-// }
-
 function removePost(id) {
   let stmt = db.prepare("DELETE FROM post WHERE id = ?");
   stmt.run(id, function (err) {
@@ -102,7 +86,6 @@ module.exports = {
   insertExamplePosts,
   getAllPosts,
   addPost,
-  // getPost,
   removePost,
   updatePostLike
 }
