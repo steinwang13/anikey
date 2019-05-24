@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      items: [],
+      items: []
     }
   },
 
@@ -57,8 +57,8 @@ export default {
     toWrite() {
       this.$router.push('/write/');
     },
-    removePost(id) {
-      this.items.splice(id, 1);
+    removePost(objId) {
+      this.items.splice(this.items.findIndex(item => item.id === objId), 1);
     },
   }
 }
