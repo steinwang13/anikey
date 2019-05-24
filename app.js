@@ -2,9 +2,13 @@
 const express = require("express");
 const http = require("http");
 const app = express();
+const cors = require('cors');
 const api = require("./server/api/api.js");
 let router = express.Router();
+
+
 app.use(express.json());
+app.use(cors());
 
 // api.db.serialize(() => {
 //   api.createTable();
@@ -22,6 +26,7 @@ app.get("/thread", function (req, res) {
   api.getAllPosts(callbackAllPostsData);
   function callbackAllPostsData(rows) {
     res.send(rows);
+    console.log("appget success");
   }
 });
 

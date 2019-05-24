@@ -14,7 +14,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 Vue.use(VueCarousel);
 Vue.prototype.$http = Axios;
-Axios.defaults.baseURL = "http://127.0.0.1:3000/";
+// Axios.defaults.baseURL = "http://localhost:3000/";
 
 import Home from './components/Home';
 import Thread from './components/Thread';
