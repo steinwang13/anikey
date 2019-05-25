@@ -39,8 +39,7 @@ export default {
   },
 
   methods: {
-    getPosts: function() {
-      console.log("hello");
+    getPosts() {
       this.$http.get("http://localhost:3000/thread")
       .then((response) => {
         this.items = response.data;
@@ -66,6 +65,18 @@ export default {
         console.log(error.response.data.message);
       })
     },
+    addLike(objId, objLike) {
+      this.$http.post("http://localhost:3000/thread", { 
+        id: objId,
+        like: objLike })
+      .then((response) => {
+        console.log(response);
+        console.log("a like is added");
+      }, (error) => {
+        console.log("failed to add a like");
+        console.log(error.response.data.message);
+      })
+    }
   }
 }
 </script>
