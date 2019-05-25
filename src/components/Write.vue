@@ -40,10 +40,9 @@
           label="Image:"
           label-for="input-3">
           <b-form-file
-            v-model="form.file"
-            :state="Boolean(form.file)"
+            v-model="file"
+            :state="Boolean(file)"
             placeholder="Choose a file..."
-            drop-placeholder="Drop file here..."
             accept="image/*"
             required
           ></b-form-file>
@@ -70,6 +69,7 @@
     </div>
     <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
+      <p class="m-0">Selected file: {{ file ? file.name : '' }}</p>
     </b-card>
   </div>
 </template>
@@ -79,10 +79,10 @@ export default {
   name: 'Write',
   data() {
     return {
+      file: null,
       form: {
         title: '',
         author: '',
-        file: null,
         text: ''
       },
       show: true
@@ -91,13 +91,14 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
+      alert(this.file.name);
       alert(JSON.stringify(this.form));
     },
     onReset(evt) {
       evt.preventDefault();
+      this.file = null;
       this.form.title = '';
       this.form.author = '';
-      this.form.file = null;
       this.form.text = '';
       this.show = false;
       this.$nextTick(() => {
