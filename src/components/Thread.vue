@@ -32,12 +32,9 @@ export default {
       items: []
     }
   },
-
-  created: function () {
-    console.log("created");
+  created() {
     this.getPosts();
   },
-
   methods: {
     getPosts() {
       this.$http.get("http://localhost:3000/thread")
@@ -66,7 +63,7 @@ export default {
       })
     },
     addLike(objId, objLike) {
-      this.$http.post("http://localhost:3000/thread", { 
+      this.$http.post("http://localhost:3000/thread", {
         id: objId,
         like: objLike })
       .then((response) => {
