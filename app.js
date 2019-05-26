@@ -30,7 +30,6 @@ var storage = multer.diskStorage({
   filename: function (req, file, callback) {
     let extArray = file.mimetype.split("/");
     let extension = extArray[extArray.length - 1];
-    console.log(extension);
     callback(null, file.fieldname + '-' + Date.now() + '.' + extension);
   }
 });
@@ -43,7 +42,7 @@ app.get("/thread", function (req, res) {
   api.getAllPosts(callbackAllPostsData);
   function callbackAllPostsData(rows) {
     res.send(rows);
-    console.log("appget success");
+    console.log("All posts retrieved successfully!");
   }
 });
 

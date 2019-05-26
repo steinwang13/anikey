@@ -69,10 +69,6 @@
 
       </b-form>
     </div>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-      <p class="m-0">Selected file: {{ file ? file.name : '' }}</p>
-    </b-card>
   </div>
 </template>
 
@@ -93,15 +89,13 @@ export default {
   methods: {
     async onSubmit(evt) {
       evt.preventDefault();
-      alert(this.file.name);
-      alert(JSON.stringify(this.form));
       const formData = new FormData();
       const headerConfig = { headers: {'Content-Type': 'multipart/form-data'}};
       formData.append('file', this.file);
       formData.set('title', this.form.title);
       formData.set('author', this.form.author);
       formData.set('text', this.form.text);
-      await this.$http.put("http://localhost:3000/write", formData, headerConfig)
+      await this.$http.put("/write", formData, headerConfig)
       .then((response) => {
         console.log(response.data);
         this.toThread();

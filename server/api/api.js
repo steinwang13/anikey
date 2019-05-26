@@ -89,7 +89,6 @@ function getImage(id, callback) {
 }
 
 function getImage2(callback, img_path) {
-  console.log(img_path);
   callback(img_path);
 }
 

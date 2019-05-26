@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     getPosts() {
-      this.$http.get("http://localhost:3000/thread")
+      this.$http.get("/thread")
       .then((response) => {
         this.items = response.data;
         console.log(response);
@@ -45,14 +45,8 @@ export default {
         console.log(error.response.data.message);
       })
     },
-    toHome() {
-      this.$router.push('/home/');
-    },
-    toWrite() {
-      this.$router.push('/write/');
-    },
     removePost(objId) {
-      this.$http.delete("http://localhost:3000/thread", { data: {id: objId} })
+      this.$http.delete("/thread", { data: {id: objId} })
       .then((response) => {
         this.items.splice(this.items.findIndex(item => item.id === objId), 1);
       }, (error) => {
@@ -60,7 +54,7 @@ export default {
       })
     },
     addLike(objId, objLike) {
-      this.$http.post("http://localhost:3000/thread", {
+      this.$http.post("/thread", {
         id: objId,
         like: objLike })
       .then((response) => {
@@ -68,6 +62,12 @@ export default {
       }, (error) => {
         console.log(error.response.data.message);
       })
+    },
+        toHome() {
+      this.$router.push('/home/');
+    },
+    toWrite() {
+      this.$router.push('/write/');
     }
   }
 }
