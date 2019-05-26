@@ -6,10 +6,12 @@ const db = new sqlite.Database("./server/db/postdb.sqlite3", function (err)  {
   }
   console.log("Database connected successfully.");
 });
-createTable();
+//createTable();
+//insertExamplePosts();
+
 
 function createTable() {
-  // db.run("DROP TABLE IF EXISTS post");
+  db.run("DROP TABLE IF EXISTS post");
   db.run("CREATE TABLE IF NOT EXISTS post \
     (id    INTEGER      NOT NULL PRIMARY KEY AUTOINCREMENT, \
     like   INTEGER      NOT NULL DEFAULT 0, \
@@ -29,7 +31,9 @@ function insertExamplePosts() {
     (image, title, author, text) VALUES (?, ?, ?, ?)");
   stmt.run("../../static/kaori.jpg", "TTT", "TT", "TKTKTKTKTKT");
   stmt.run("../../static/suzumiya.jpg", "T", "T", "TKTKTKTKTK");
+  stmt.run("../../static/anikeylogo.png","X","X","CCC");
   stmt.finalize();
+  console.log("Example posts inserted.");
 }
 
 function addPost(image, title, author, text) {
@@ -60,22 +64,6 @@ function getAllPosts2(callback, rows) {
   callback(rows);
 }
 
-function getPost(id, callback) {
-  let stmt = db.prepare("SELECT * FROM post WHERE id = ?");
-  stmt.get(id, ready);
-  stmt.finalize();
-  function ready(err, row) {
-    if (err) {
-      return console.log(err.message);
-    }
-    getPost2(callback, row);
-  }
-}
-
-function getPost2(callback, row) {
-  callback(row);
-}
-
 function removePost(id) {
   let stmt = db.prepare("DELETE FROM post WHERE id = ?");
   stmt.run(id, function (err) {
@@ -85,6 +73,23 @@ function removePost(id) {
     console.log("Record deleted successfully.");
   });
   stmt.finalize();
+}
+
+function getImage(id, callback) {
+  let stmt = db.prepare("SELECT image FROM post WHERE id = ?");
+  stmt.get(id, ready);
+  stmt.finalize();
+  function ready(err, img_path) {
+    if (err) {
+      return console.log(err.message);
+    }
+    getImage2(callback, img_path);
+  }
+}
+
+function getImage2(callback, img_path) {
+  console.log(img_path);
+  callback(img_path);
 }
 
 function updatePostLike(id, like) {
@@ -102,7 +107,7 @@ module.exports = {
   insertExamplePosts,
   getAllPosts,
   addPost,
-  getPost,
   removePost,
+  getImage,
   updatePostLike
 }

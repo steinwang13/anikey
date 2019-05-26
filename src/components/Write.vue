@@ -17,7 +17,7 @@
           <b-form-input
             id="input-1"
             v-model="form.title"
-            type="title"
+            type="text"
             required
             placeholder="Title of the Review"
           ></b-form-input>
@@ -30,6 +30,7 @@
           <b-form-input
             id="input-2"
             v-model="form.author"
+            type="text"
             required
             placeholder="Enter Whatever Name You Like"
           ></b-form-input>
@@ -40,10 +41,9 @@
           label="Image:"
           label-for="input-3">
           <b-form-file
-            v-model="form.file"
-            :state="Boolean(form.file)"
+            v-model="file"
+            :state="Boolean(file)"
             placeholder="Choose a file..."
-            drop-placeholder="Drop file here..."
             accept="image/*"
             required
           ></b-form-file>
@@ -55,10 +55,11 @@
           <b-form-textarea
             id="textarea"
             v-model="form.text"
+            type="textarea"
             placeholder="Enter no more than 1500 characters..."
             rows="8"
             max-rows="16"
-            :state="form.text.length <= 1500 & form.text.length > 0"
+            :state="(form.text.length <= 1500) && (form.text.length > 0)"
             required
           ></b-form-textarea>
         </b-form-group>
@@ -70,6 +71,7 @@
     </div>
     <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
+      <p class="m-0">Selected file: {{ file ? file.name : '' }}</p>
     </b-card>
   </div>
 </template>
@@ -79,25 +81,39 @@ export default {
   name: 'Write',
   data() {
     return {
+      file: null,
       form: {
         title: '',
         author: '',
-        file: null,
         text: ''
       },
       show: true
     };
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
+      alert(this.file.name);
       alert(JSON.stringify(this.form));
+      const formData = new FormData();
+      const headerConfig = { headers: {'Content-Type': 'multipart/form-data'}};
+      formData.append('file', this.file);
+      formData.set('title', this.form.title);
+      formData.set('author', this.form.author);
+      formData.set('text', this.form.text);
+      console.log(this.file);
+      console.log(this.form);
+      await this.$http.put("http://localhost:3000/write", formData, headerConfig)
+      .then((response) => {
+        console.log(response.data);
+        this.toThread();
+      });
     },
     onReset(evt) {
       evt.preventDefault();
+      this.file = null;
       this.form.title = '';
       this.form.author = '';
-      this.form.file = null;
       this.form.text = '';
       this.show = false;
       this.$nextTick(() => {

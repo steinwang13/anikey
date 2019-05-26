@@ -26,56 +26,54 @@ export default {
   components: {
     Post
   },
-  data: function() {
+
+  data() {
     return {
-      items: [
-        {
-          "id": 1,
-          "like": 0,
-          "image": "../../static/jingmi.jpg",
-          "title": "Title",
-          "author": "god",
-          "text": "Sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.\n\nFusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        },
-        {
-          "id": 2,
-          "like": 0,
-          "image": "../../static/kyoushitsu.jpg",
-          "title": "Title",
-          "author": "god",
-          "text": "Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.\n\nFusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nDonec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-        }
-      ]
-    };
+      items: []
+    }
   },
-  /* Run getAllPostsData when the page is opened. */
-  // created() {
-  //   this.getAllPostsData();
-  // },
+  created() {
+    this.getPosts();
+  },
   methods: {
+    getPosts() {
+      this.$http.get("http://localhost:3000/thread")
+      .then((response) => {
+        this.items = response.data;
+        console.log(response);
+        console.log("acquired all posts");
+      }, (error) => {
+        console.log("cannot get all posts");
+        console.log(error.response.data.message);
+      })
+    },
     toHome() {
       this.$router.push('/home/');
     },
     toWrite() {
       this.$router.push('/write/');
     },
-    removePost(id) {
-      this.items.splice(id, 1);
+    removePost(objId) {
+      this.$http.delete("http://localhost:3000/thread", { data: {id: objId} })
+      .then((response) => {
+        this.items.splice(this.items.findIndex(item => item.id === objId), 1);
+      }, (error) => {
+        console.log("failed to delete a post");
+        console.log(error.response.data.message);
+      })
     },
-    /* Get data of posts from backend. NOT FINISHED */
-    // getAllPostsData() {
-    //   this.$http.get("/thread/").then(function (err, res) {
-    //     if (err) {
-    //       this.$message.error("Failed to get thread of posts!");
-    //       console.log(err);
-    //     }
-    //     if (res.status == 200) {
-    //       this.items = res.data;
-    //     } else {
-    //       this.$message.error("Failed to get thread of posts!");
-    //     }
-    //   });
-    // }
+    addLike(objId, objLike) {
+      this.$http.post("http://localhost:3000/thread", {
+        id: objId,
+        like: objLike })
+      .then((response) => {
+        console.log(response);
+        console.log("a like is added");
+      }, (error) => {
+        console.log("failed to add a like");
+        console.log(error.response.data.message);
+      })
+    }
   }
 }
 </script>
