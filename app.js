@@ -5,9 +5,11 @@ const cors = require('cors');
 const api = require("./server/api/api.js");
 const multer = require("multer");
 const fs = require("fs");
-const port = 3000;
+var serveStatic = require('serve-static');
+const port = process.env.PORT || 3000;
 
 // ----- Middleware -----
+app.use(serveStatic(__dirname + "/dist"));
 app.use(express.json());
 app.use(cors());
 
