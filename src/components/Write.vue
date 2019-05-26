@@ -17,7 +17,7 @@
           <b-form-input
             id="input-1"
             v-model="form.title"
-            type="title"
+            type="text"
             required
             placeholder="Title of the Review"
           ></b-form-input>
@@ -30,6 +30,7 @@
           <b-form-input
             id="input-2"
             v-model="form.author"
+            type="text"
             required
             placeholder="Enter Whatever Name You Like"
           ></b-form-input>
@@ -54,10 +55,11 @@
           <b-form-textarea
             id="textarea"
             v-model="form.text"
+            type="textarea"
             placeholder="Enter no more than 1500 characters..."
             rows="8"
             max-rows="16"
-            :state="form.text.length <= 1500 & form.text.length > 0"
+            :state="(form.text.length <= 1500) && (form.text.length > 0)"
             required
           ></b-form-textarea>
         </b-form-group>
@@ -89,10 +91,23 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
       alert(this.file.name);
       alert(JSON.stringify(this.form));
+      const formData = new FormData();
+      const headerConfig = { headers: {'Content-Type': 'multipart/form-data'}};
+      formData.append('file', this.file);
+      formData.set('title', this.form.title);
+      formData.set('author', this.form.author);
+      formData.set('text', this.form.text);
+      console.log(this.file);
+      console.log(this.form);
+      await this.$http.put("http://localhost:3000/write", formData, headerConfig)
+      .then((response) => {
+        console.log(response.data);
+        this.toThread();
+      });
     },
     onReset(evt) {
       evt.preventDefault();

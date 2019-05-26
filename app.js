@@ -4,11 +4,37 @@ const http = require("http");
 const app = express();
 const cors = require('cors');
 const api = require("./server/api/api.js");
-let router = express.Router();
-
+const multer = require("multer");
+const fs = require("fs");
+var router = express.Router();
 
 app.use(express.json());
 app.use(cors());
+
+var createFolder = function(folder) {
+  try {
+    fs.accessSync(folder);
+  } catch (err) {
+    fs.mkdirSync(folder);
+  }
+};
+
+var uploadFolder = "./static/upload/";
+createFolder(uploadFolder);
+
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, uploadFolder);
+  },
+  filename: function (req, file, callback) {
+    let extArray = file.mimetype.split("/");
+    let extension = extArray[extArray.length - 1];
+    console.log(extension);
+    callback(null, file.fieldname + '-' + Date.now() + '.' + extension);
+  }
+});
+
+var upload = multer({ storage: storage });
 
 // api.db.serialize(() => {
 //   api.createTable();
@@ -30,8 +56,11 @@ app.get("/thread", function (req, res) {
   }
 });
 
-app.put("/write", function (req, res) {
-  api.addPost(req.body.image, req.body.title, req.body.author, req.body.text);
+app.put("/write", upload.single("file"), function (req, res) {
+  console.log(req.file.destination);
+  console.log(req.file.filename);
+  console.log(req.file.path);
+  api.addPost("../../" + req.file.path, req.body.title, req.body.author, req.body.text);
   res.send("Review Added!");
 });
 
