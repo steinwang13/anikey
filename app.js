@@ -70,6 +70,19 @@ app.post("/thread", function (req, res) {
 });
 
 app.delete("/thread", function (req, res) {
+  api.getImage(req.body.id, callbackImage);
+  function callbackImage(img) {
+    let path = img.image;
+    let modPath = path.slice(4);
+    console.log(modPath);
+    fs.unlink(modPath, (err) => {
+      if(err) {
+        console.error(err);
+        return;
+      }
+      // file removed
+    });
+  }
   api.removePost(req.body.id);
   res.send("Review deleted!");
 });

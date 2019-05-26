@@ -75,6 +75,23 @@ function removePost(id) {
   stmt.finalize();
 }
 
+function getImage(id, callback) {
+  let stmt = db.prepare("SELECT image FROM post WHERE id = ?");
+  stmt.get(id, ready);
+  stmt.finalize();
+  function ready(err, img_path) {
+    if (err) {
+      return console.log(err.message);
+    }
+    getImage2(callback, img_path);
+  }
+}
+
+function getImage2(callback, img_path) {
+  console.log(img_path);
+  callback(img_path);
+}
+
 function updatePostLike(id, like) {
   let stmt = db.prepare("UPDATE post SET like = ? WHERE id = ?");
   stmt.run(like, id, function (err) {
@@ -91,5 +108,6 @@ module.exports = {
   getAllPosts,
   addPost,
   removePost,
+  getImage,
   updatePostLike
 }
