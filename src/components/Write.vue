@@ -1,7 +1,7 @@
 <template>
   <div id="write">
     <b-navbar fixed toggleable id="navbar">
-      <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
+      <a href=""><b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand></a>
       <b-navbar-nav>
         <b-button variant="outline-light" id="nav-write" @click="toThread">Go Back</b-button>
       </b-navbar-nav>
@@ -101,8 +101,6 @@ export default {
       formData.set('title', this.form.title);
       formData.set('author', this.form.author);
       formData.set('text', this.form.text);
-      console.log(this.file);
-      console.log(this.form);
       await this.$http.put("http://localhost:3000/write", formData, headerConfig)
       .then((response) => {
         console.log(response.data);

@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <b-navbar fixed toggleable id="navbar">
-      <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
+      <a href=""><b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand></a>
       <b-nav-text toggleable>INTO ISEKAI!</b-nav-text>
       <b-navbar-nav>
         <b-button variant="outline-light" id="nav-getin" @click="toThread">Get In!</b-button>

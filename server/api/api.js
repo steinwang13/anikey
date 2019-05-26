@@ -9,7 +9,7 @@ const db = new sqlite.Database("./server/db/postdb.sqlite3", function (err)  {
 //createTable();
 //insertExamplePosts();
 
-
+// Only used to reset the database
 function createTable() {
   db.run("DROP TABLE IF EXISTS post");
   db.run("CREATE TABLE IF NOT EXISTS post \
@@ -26,6 +26,7 @@ function createTable() {
   });
 }
 
+// Example posts we use for testing
 function insertExamplePosts() {
   let stmt = db.prepare("INSERT INTO post \
     (image, title, author, text) VALUES (?, ?, ?, ?)");

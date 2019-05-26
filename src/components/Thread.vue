@@ -1,7 +1,7 @@
 <template>
   <div id="thread">
     <b-navbar fixed toggleable id="navbar">
-      <b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand>
+      <a href=""><b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand></a>
       <b-navbar-nav>
         <b-button variant="outline-light" id="nav-write" @click="toWrite">Write New Review!</b-button>
       </b-navbar-nav>
@@ -41,9 +41,7 @@ export default {
       .then((response) => {
         this.items = response.data;
         console.log(response);
-        console.log("acquired all posts");
       }, (error) => {
-        console.log("cannot get all posts");
         console.log(error.response.data.message);
       })
     },
@@ -58,7 +56,6 @@ export default {
       .then((response) => {
         this.items.splice(this.items.findIndex(item => item.id === objId), 1);
       }, (error) => {
-        console.log("failed to delete a post");
         console.log(error.response.data.message);
       })
     },
@@ -68,9 +65,7 @@ export default {
         like: objLike })
       .then((response) => {
         console.log(response);
-        console.log("a like is added");
       }, (error) => {
-        console.log("failed to add a like");
         console.log(error.response.data.message);
       })
     }
