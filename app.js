@@ -88,6 +88,7 @@ app.delete("/thread", function (req, res) {
   res.send("Review deleted!");
 });
 
-app.listen(port, function () {
+// The server can only be accessed form localhost
+app.listen(port, 'localhost', function () {
   console.log(`Anikey app listening on port ${port}!`);
 });
