@@ -22,6 +22,8 @@ var createFolder = function(folder) {
 };
 
 var uploadFolder = "./dist/static/upload/";
+// In Dev Mode: Use the line below to replace the line above
+// var uplaodFolder = "./static/upload/";
 createFolder(uploadFolder);
 
 var storage = multer.diskStorage({
@@ -48,10 +50,13 @@ app.get("/thread", function (req, res) {
 });
 
 // Add a new review to database
-// and respective image to ./static/upload directory
+// and image file to ./static/upload directory in Build
+// (./dist/static/upload)
 app.put("/write", upload.single("file"), function (req, res) {
   let path = req.file.path;
   path = path.slice(4);
+  // In Dev Mode: Use the line below to replace the line above
+  // path = "../../" + path;
   api.addPost(path, req.body.title, req.body.author, req.body.text);
   res.send("Review Added!");
 });
@@ -63,12 +68,15 @@ app.post("/thread", function (req, res) {
 });
 
 // Delete a review in database along with the image
-// stored in ./static/upload directory
+// stored in ./dist/static/upload directory in Build,
+// stored in ./static/upload in Dev Mode
 app.delete("/thread", function (req, res) {
   api.getImage(req.body.id, callbackImage);
   function callbackImage(img) {
     let path = img.image;
     path = "./dist" + path;
+    // In Dev Mode: Use the line below to replace the line above
+    // path = path.slice(4);
     fs.unlink(path, (err) => {
       if(err) {
         console.error(err);
