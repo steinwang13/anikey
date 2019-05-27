@@ -34,9 +34,9 @@ function createTable() {
 function insertExamplePosts() {
   let stmt = db.prepare("INSERT INTO post \
     (image, title, author, text) VALUES (?, ?, ?, ?)");
-  stmt.run("../../static/kaori.jpg", "Your Lie in April", "IloveKaori", "In my opinion, Your Lie in April is greatest masterpiece of all time. Your taste in anime is irrelevant, just watch it and be blown by how good the story and character development are. Not to boot about how kawaii Kaori is and the beautiful art along with exhilirating music.");
-  stmt.run("../../static/suzumiya.jpg", "Another generic romcom?", "AnimeGod", "I grew up watching romcom shounen anime. I probably have watched like 50 titles just on the romcom genre so I consider myself pretty good at measuring the quality of anime in this genre. So, the question is, how good was this anime series? Well I think Haruhi Suzumiya is a classic plus there is my best waifu Suzumiya there, ez 10/10");
-  stmt.run("../../static/anikeylogo.png","Our logo","AnikeyAdmin","Our logo was built by combining Vue's logo. This is a form of appreciation from us to them for the sophisticated framework they are able to offer.");
+  stmt.run("/static/kaori.jpg", "Your Lie in April", "IloveKaori", "In my opinion, Your Lie in April is greatest masterpiece of all time. Your taste in anime is irrelevant, just watch it and be blown by how good the story and character development are. Not to boot about how kawaii Kaori is and the beautiful art along with exhilirating music.");
+  stmt.run("/static/suzumiya.jpg", "Another generic romcom?", "AnimeGod", "I grew up watching romcom shounen anime. I probably have watched like 50 titles just on the romcom genre so I consider myself pretty good at measuring the quality of anime in this genre. So, the question is, how good was this anime series? Well I think Haruhi Suzumiya is a classic plus there is my best waifu Suzumiya there, ez 10/10");
+  stmt.run("/static/anikeylogo.png","Our logo","AnikeyAdmin","Our logo was built by combining Vue's logo. This is a form of appreciation from us to them for the sophisticated framework they are able to offer.");
   stmt.finalize();
   console.log("Example posts inserted.");
 }
