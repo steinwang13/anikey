@@ -1,15 +1,15 @@
 <template>
   <div id="home">
     <b-navbar fixed toggleable id="navbar">
-      <b-navbar-brand id="nav-title" href="Home">AniKey</b-navbar-brand>
+      <a href=""><b-navbar-brand id="nav-title" @click="toHome">AniKey</b-navbar-brand></a>
       <b-nav-text toggleable>INTO ISEKAI!</b-nav-text>
       <b-navbar-nav>
-        <b-button variant="outline-light" id="nav-getin" href="">Get In!</b-button>
+        <b-button variant="outline-light" id="nav-getin" @click="toThread">Get In!</b-button>
       </b-navbar-nav>
     </b-navbar>
 
     <div id="logo-box">
-      <img id="logo" src="../assets/anikeylogo.png">
+      <img id="logo" src="../../static/anikeylogo.png">
       <p id="sitename">ANIKEY</p>
       <p id="description">a site to share anime reviews</p>
     </div>
@@ -21,14 +21,22 @@
 </template>
 
 <script>
-  import CarouselTest from './CarouselTest'
+import CarouselTest from './CarouselTest'
 
-  export default {
-    name: 'Home',
-    components: {
-      CarouselTest
+export default {
+  name: 'Home',
+  components: {
+    CarouselTest
+  },
+  methods: {
+    toHome() {
+      this.$router.push('/home/')
+    },
+    toThread() {
+      this.$router.push('/thread/')
     }
   }
+}
 </script>
 
 <style scoped>
