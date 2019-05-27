@@ -5,11 +5,10 @@ const cors = require('cors');
 const api = require("./server/api/api.js");
 const multer = require("multer");
 const fs = require("fs");
-var serveStatic = require('serve-static');
 const port = process.env.PORT || 3000;
 
 // ----- Middleware -----
-app.use(serveStatic(__dirname + "/dist"));
+app.use(express.static(__dirname + "/dist"));
 app.use(express.json());
 app.use(cors());
 
@@ -22,7 +21,7 @@ var createFolder = function(folder) {
   }
 };
 
-var uploadFolder = "./static/upload/";
+var uploadFolder = "./dist/static/upload/";
 createFolder(uploadFolder);
 
 var storage = multer.diskStorage({
@@ -51,7 +50,9 @@ app.get("/thread", function (req, res) {
 // Add a new review to database
 // and respective image to ./static/upload directory
 app.put("/write", upload.single("file"), function (req, res) {
-  api.addPost("../../" + req.file.path, req.body.title, req.body.author, req.body.text);
+  let path = req.file.path;
+  path = path.slice(4);
+  api.addPost(path, req.body.title, req.body.author, req.body.text);
   res.send("Review Added!");
 });
 
@@ -61,14 +62,14 @@ app.post("/thread", function (req, res) {
   res.send("Review liked!");
 });
 
-// Delete a review in database along with the image 
+// Delete a review in database along with the image
 // stored in ./static/upload directory
 app.delete("/thread", function (req, res) {
   api.getImage(req.body.id, callbackImage);
   function callbackImage(img) {
     let path = img.image;
-    let modPath = path.slice(4);
-    fs.unlink(modPath, (err) => {
+    path = "./dist" + path;
+    fs.unlink(path, (err) => {
       if(err) {
         console.error(err);
       }

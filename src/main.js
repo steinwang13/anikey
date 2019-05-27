@@ -21,7 +21,6 @@ import Thread from './components/Thread';
 import Write from './components/Write';
 
 const router = new VueRouter({
-  mode: 'history',
   base: __dirname,
   routes: [
     {
